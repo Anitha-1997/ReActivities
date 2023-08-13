@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "semantic-ui-react";
+import { Button, Container } from "semantic-ui-react";
 import { v4 as uuid } from "uuid";
 import { Activity } from "../models/activity";
 import Navbar from "./Navbar";
 import ActivityDashboard from "../../features/activities/dashboard/ActivityDashboard";
 import agent from "../api/agent";
 import LoadingIndicator from "./LoadingIndicator";
+import { useStore } from "../stores/store";
+import { observer } from "mobx-react-lite";
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -15,6 +17,7 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const { activityStore } = useStore();
 
   useEffect(() => {
     agent.Activities.list().then((response) => {
@@ -81,6 +84,12 @@ function App() {
     <>
       <Navbar openForm={handleFormOpen} />
       <Container style={{ marginTop: "7em" }}>
+        <h2>{activityStore.title}</h2>
+        <Button
+          content="Add exclamation!"
+          positive
+          onClick={activityStore.setTitle}
+        />
         <ActivityDashboard
           activities={activities}
           selectedActivity={selectedActivity}
@@ -98,4 +107,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
