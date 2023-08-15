@@ -1,19 +1,25 @@
-import React from "react";
+import { useEffect } from "react";
 import { Button, Card, Image } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import LoadingIndicator from "../../../app/layout/LoadingIndicator";
+import { Link, useParams } from "react-router-dom";
+import { observer } from "mobx-react-lite";
 
-interface Props {}
-
-export default function ActivityDetails({}: Props) {
+export default observer(function ActivityDetails() {
   const { activityStore } = useStore();
   const {
     selectedActivity: activity,
-    cancelSelectActivity,
-    openForm,
+    loadActivity,
+    loadingInitial,
   } = activityStore;
 
-  if (!activity) return <LoadingIndicator />;
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (id) loadActivity(id);
+  }, [id, loadActivity]);
+
+  if (loadingInitial || !activity) return <LoadingIndicator />;
   return (
     <Card>
       <Image src={`/assets/categoryImages/${activity.category}.jpg`} />
@@ -27,13 +33,15 @@ export default function ActivityDetails({}: Props) {
       <Card.Content extra>
         <Button.Group widths={2}>
           <Button
-            onClick={() => openForm(activity.id)}
+            as={Link}
+            to={`/manage/${activity.id}`}
             basic
             color="blue"
             content="Edit"
           ></Button>
           <Button
-            onClick={cancelSelectActivity}
+            as={Link}
+            to="/activities"
             basic
             color="grey"
             content="Cancel"
@@ -42,4 +50,4 @@ export default function ActivityDetails({}: Props) {
       </Card.Content>
     </Card>
   );
-}
+});
