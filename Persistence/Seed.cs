@@ -7,16 +7,17 @@ namespace Persistence
         public static async Task SeedData(DataContext context)
         {
             if (context.Activities.Any()) return;
-            
+
             var activities = new List<Activity>
             {
-                new Activity
+               new Activity
                 {
                     Title = "Past Activity 1",
                     Date = DateTime.UtcNow.AddMonths(-2),
                     Description = "Activity 2 months ago",
                     Category = "drinks",
-                    City = "London"
+                    City = "London",
+                    Venue = "Pub",
                 },
                 new Activity
                 {
@@ -24,7 +25,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(-1),
                     Description = "Activity 1 month ago",
                     Category = "culture",
-                    City = "Paris"
+                    City = "Paris",
+                    Venue = "Louvre",
                 },
                 new Activity
                 {
@@ -32,7 +34,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(1),
                     Description = "Activity 1 month in future",
                     Category = "culture",
-                    City = "London"
+                    City = "London",
+                    Venue = "Natural History Museum",
                 },
                 new Activity
                 {
@@ -40,7 +43,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(2),
                     Description = "Activity 2 months in future",
                     Category = "music",
-                    City = "London"
+                    City = "London",
+                    Venue = "O2 Arena",
                 },
                 new Activity
                 {
@@ -49,6 +53,7 @@ namespace Persistence
                     Description = "Activity 3 months in future",
                     Category = "drinks",
                     City = "London",
+                    Venue = "Another pub",
                 },
                 new Activity
                 {
@@ -56,7 +61,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(4),
                     Description = "Activity 4 months in future",
                     Category = "drinks",
-                    City = "London"
+                    City = "London",
+                    Venue = "Yet another pub",
                 },
                 new Activity
                 {
@@ -64,7 +70,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(5),
                     Description = "Activity 5 months in future",
                     Category = "drinks",
-                    City = "London"
+                    City = "London",
+                    Venue = "Just another pub",
                 },
                 new Activity
                 {
@@ -72,7 +79,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(6),
                     Description = "Activity 6 months in future",
                     Category = "music",
-                    City = "London"
+                    City = "London",
+                    Venue = "Roundhouse Camden",
                 },
                 new Activity
                 {
@@ -80,7 +88,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(7),
                     Description = "Activity 2 months ago",
                     Category = "travel",
-                    City = "London"
+                    City = "London",
+                    Venue = "Somewhere on the Thames",
                 },
                 new Activity
                 {
@@ -88,7 +97,8 @@ namespace Persistence
                     Date = DateTime.UtcNow.AddMonths(8),
                     Description = "Activity 8 months in future",
                     Category = "film",
-                    City = "London"
+                    City = "London",
+                    Venue = "Cinema",
                 }
             };
 
