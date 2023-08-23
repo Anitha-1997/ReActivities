@@ -22,7 +22,7 @@ namespace API.Controllers
             _userManager = userManager;
 
         }
-    [AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO loginDTO)
         {
@@ -36,17 +36,19 @@ namespace API.Controllers
             }
             return Unauthorized();
         }
-    [AllowAnonymous]
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO registerDTO)
         {
             if (await _userManager.Users.AnyAsync(x => x.UserName == registerDTO.UserName))
             {
-                return BadRequest("Username is already taken");
+                ModelState.AddModelError("name", "Username is already taken");
+                return ValidationProblem();
             }
             if (await _userManager.Users.AnyAsync(x => x.Email == registerDTO.Email))
             {
-                return BadRequest("Email is already taken");
+                ModelState.AddModelError("email", "Email is already taken");
+                return ValidationProblem();
             }
 
             var user = new AppUser
