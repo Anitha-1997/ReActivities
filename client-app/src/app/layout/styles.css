@@ -10,10 +10,6 @@ body {
     rgb(32, 167, 172) 89%
   ) !important;
 }
-.ui.card,
-.ui.cards > .card {
-  width: unset !important;
-}
 
 .react-calendar {
   width: 100% !important;
