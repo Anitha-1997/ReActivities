@@ -7,7 +7,6 @@ export default observer(function Navbar() {
   const {
     userStore: { user, logout },
   } = useStore();
-  console.log(user);
   return (
     <Menu inverted fixed="top">
       <Container>

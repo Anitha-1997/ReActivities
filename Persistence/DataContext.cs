@@ -12,6 +12,7 @@ namespace Persistence
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityAttendee> ActivityAttendees { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -19,6 +20,7 @@ namespace Persistence
             builder.Entity<ActivityAttendee>(x => x.HasKey(aa => new { aa.AppUserId, aa.ActivityId }));
             builder.Entity<ActivityAttendee>().HasOne(u => u.AppUser).WithMany(o => o.Activities).HasForeignKey(a => a.AppUserId);
             builder.Entity<ActivityAttendee>().HasOne(u => u.Activity).WithMany(o => o.Attendees).HasForeignKey(a => a.ActivityId);
+            builder.Entity<Comment>().HasOne(u => u.Activity).WithMany(o => o.Comments).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
