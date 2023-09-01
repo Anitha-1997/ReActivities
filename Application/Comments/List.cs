@@ -27,7 +27,7 @@ namespace Application.Comments
             public async Task<Result<List<CommentDTO>>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var comments = await _context.Comments.Where(x => x.Activity.Id == request.ActivityId)
-                .OrderBy(x => x.CreatedAt).ProjectTo<CommentDTO>(_mapper.ConfigurationProvider).ToListAsync();
+                .OrderByDescending(x => x.CreatedAt).ProjectTo<CommentDTO>(_mapper.ConfigurationProvider).ToListAsync();
 
                 return Result<List<CommentDTO>>.Success(comments);
             }

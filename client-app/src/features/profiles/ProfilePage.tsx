@@ -10,11 +10,15 @@ import LoadingIndicator from "../../app/layout/LoadingIndicator";
 export default observer(function ProfilePage() {
   const { username } = useParams<{ username: string }>();
   const { profileStore } = useStore();
-  const { loadProfile, loadingProfile, profile } = profileStore;
+  const { loadProfile, loadingProfile, profile, setActiveTab } = profileStore;
 
   useEffect(() => {
     loadProfile(username!);
-  }, [loadProfile, username]);
+    return () => {
+      setActiveTab(0);
+    };
+  }, [loadProfile, username, setActiveTab]);
+
   if (loadingProfile) return <LoadingIndicator content="Loading Profile..." />;
 
   return (

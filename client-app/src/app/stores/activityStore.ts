@@ -11,9 +11,11 @@ export default class ActivityStore {
   editMode = false;
   loading = false;
   loadingInitial = false;
+
   constructor() {
     makeAutoObservable(this);
   }
+
   get activitiesByDate() {
     return Array.from(this.activityRegistry.values()).sort(
       (a, b) => a.date!.getTime() - b.date!.getTime()
@@ -47,6 +49,7 @@ export default class ActivityStore {
       this.setLoadingInitial(false);
     }
   };
+
   private getActivity = (id: string) => {
     return this.activityRegistry.get(id);
   };
@@ -200,5 +203,22 @@ export default class ActivityStore {
         this.loading = false;
       });
     }
+  };
+
+  clearSelectedActivity = () => {
+    this.selectedActivity = undefined;
+  };
+
+  updateAttendeeFollowing = (username: string) => {
+    this.activityRegistry.forEach((activity) => {
+      activity.attendees.forEach((attendee) => {
+        if (attendee.userName === username) {
+          attendee.following
+            ? attendee.followersCount--
+            : attendee.followersCount++;
+          attendee.following = !attendee.following;
+        }
+      });
+    });
   };
 }
